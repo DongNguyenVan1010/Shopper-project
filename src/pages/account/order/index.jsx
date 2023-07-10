@@ -3,14 +3,14 @@ import { generatePath, Link } from 'react-router-dom'
 import Paginate from '../../../component/Paginate'
 import { path } from '../../../config/path'
 import { useCurrentPage, useQuery } from '../../../core'
-import orderService from '../../../store/order.service'
+import orderService from '../../../service/order.service'
 import { currency } from '../../../utils/currency'
 
 export default function Order() {
 
     const currentPage = useCurrentPage()
     const { data, paginate, loading } = useQuery(() => orderService.getList(`?page=${currentPage}`), [ currentPage ])
-
+    console.log('paginate', paginate)
     const renderImage = (listItems) => {
         const list = []
         if (listItems.length >= 5) {
@@ -43,7 +43,6 @@ export default function Order() {
         return list
     }
 
-    // console.log('data', data)
     return (
         <>
             <div>

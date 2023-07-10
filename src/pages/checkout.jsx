@@ -73,16 +73,14 @@ export default function Checkout() {
             // console.log('cart', cart)
         }
     }
-
     useEffect(() => {
-        if (cart.shippingMethod) {
-            setShipping(cart.shippingMethod)
-        }
-    }, cart.shippingMethod)
+
+        onChangeShippingMethod(shipping)
+    }, [])
 
     const onChangeShippingMethod = async (method) => {
-
-        await changeShippingMethod({ shippingMethod: shipping })
+        setShipping(method)
+        await changeShippingMethod({ shippingMethod: method })
         dispatch(getCartAction())
     }
 
@@ -174,7 +172,7 @@ export default function Checkout() {
                                             <tr>
                                                 <td>
                                                     <div className="custom-control custom-radio">
-                                                        <input onChange={ () => onChangeShippingMethod('tieu-chuan') } checked={ cart?.shippingMethod === 'tieu-chuan' } className="custom-control-input" id="checkoutShippingStandard" name="shipping" type="radio" />
+                                                        <input onChange={ () => onChangeShippingMethod('tieu-chuan') } checked={ shipping === 'tieu-chuan' } className="custom-control-input" id="checkoutShippingStandard" name="shipping" type="radio" />
                                                         <label className="custom-control-label text-body text-nowrap" htmlFor="checkoutShippingStandard">
                                                             Standard Shipping
                                                         </label>
@@ -186,7 +184,7 @@ export default function Checkout() {
                                             <tr>
                                                 <td>
                                                     <div className="custom-control custom-radio">
-                                                        <input onChange={ () => onChangeShippingMethod(setShipping('giao-hang-nhanh')) } checked={ cart?.shippingMethod === 'giao-hang-nhanh' } className="custom-control-input" id="checkoutShippingExpress" name="shipping" type="radio" />
+                                                        <input onChange={ () => onChangeShippingMethod('giao-hang-nhanh') } checked={ shipping === 'giao-hang-nhanh' } className="custom-control-input" id="checkoutShippingExpress" name="shipping" type="radio" />
                                                         <label className="custom-control-label text-body text-nowrap" htmlFor="checkoutShippingExpress">
                                                             Express Shipping
                                                         </label>
@@ -198,7 +196,7 @@ export default function Checkout() {
                                             <tr>
                                                 <td>
                                                     <div className="custom-control custom-radio">
-                                                        <input onChange={ () => onChangeShippingMethod(setShipping('mien-phi')) } checked={ cart?.shippingMethod === 'mien-phi' } className="custom-control-input" id="checkoutShippingFree" name="shipping" type="radio" />
+                                                        <input onChange={ () => onChangeShippingMethod('mien-phi') } checked={ shipping === 'mien-phi' } className="custom-control-input" id="checkoutShippingFree" name="shipping" type="radio" />
                                                         <label className="custom-control-label text-body text-nowrap" htmlFor="checkoutShippingFree">
                                                             Free Shipping
                                                         </label>

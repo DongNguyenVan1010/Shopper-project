@@ -15,6 +15,7 @@ export default function ProductCard({
   images,
   price,
   real_price,
+  discount_rate,
   rating_average,
   review_count,
   thumbnail_url,
@@ -115,9 +116,23 @@ export default function ProductCard({
             </a>
           </div>
           {/* Price */ }
-          <div className="font-weight-bold text-muted">
-            { currency(real_price) }
-          </div>
+
+
+          {
+            real_price < price ? <>
+              <span className="font-weight-bold" style={ { color: 'red', marginRight: 7, fontSize: 21 } }>
+                { currency(real_price) }đ
+              </span>
+              <span className="font-weight-bold text-muted" style={ { textDecoration: 'line-through' } }>
+                { currency(price) }đ
+              </span>
+            </>
+              : <>
+                <span className="font-weight-bold text-muted" style={ { textDecoration: 'none' } }>
+                  { currency(price) }đ
+                </span>
+              </>
+          }
         </div>
       </div>
     </div>

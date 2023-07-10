@@ -3,11 +3,27 @@ import cartService from "../service/cart.service"
 import { createThunkAction } from "../utils/createThunkAction"
 
 const initialState = {
-    cart: {}
+    cart: {},
+    shipping: 0
 }
 
-const SET_CART = 'cart/setCart'
+export const updateShippingMethod = (data) => {
+    dispatch(cartService.precheckout(data))
+}
 
+// export const getShippingAction = () => {
+//     return async (dispatch) => {
+//         try {
+//             if (getToken()) {
+//                 const shipping = await cartService.getShippingMethod()
+//                 dispatch({ type: SET_CART, payload: cart.data })
+//             }
+//         }
+//     }
+// }
+
+const SET_CART = 'cart/setCart'
+const SET_SHIPPING = 'shipping/setShipping'
 
 export const getCartAction = () => {
     return async (dispatch) => {
@@ -15,6 +31,8 @@ export const getCartAction = () => {
             if (getToken()) {
                 const cart = await cartService.getCart()
                 dispatch({ type: SET_CART, payload: cart.data })
+                const shipping = await cartService.getShippingMethod()
+                dispatch({ type: SET_SHIPPING, payload: shipping.data })
             }
         }
         catch (err) {
@@ -64,6 +82,8 @@ export default function cartReducer(state = initialState, action) {
     switch (action.type) {
         case SET_CART:
             return { ...state, cart: action.payload }
+        case SET_SHIPPING:
+            return { ...state, shipping: action.payload }
         default:
             return state
     }
